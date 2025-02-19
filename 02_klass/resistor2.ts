@@ -1,5 +1,3 @@
-import { truncateSync } from "fs";
-
 class Resistor {
     r: number = 0;
     maxP : number = 0;
