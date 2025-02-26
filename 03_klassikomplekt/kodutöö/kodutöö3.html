@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Põrkepall</title>
+        <script>
+            let ball;
+            let canvas, ctx;
+            function startPage() {
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+                canvas.width=window.innerWidth;
+                canvas.height=window.innerHeight;
+                ball=new Ball(ctx, 100, 1, 20, 2, 1);
+                ballBounce();
+
+            function currentBall() {
+                document.getElementById("currentGravity").textContent = ball.gravity.toFixed(2);
+                document.getElementById("currentFriction").textContent = ball.friction.toFixed(2);
+            }
+
+            document.getElementById("increaseGravity").addEventListener("click", () => {
+                ball.gravity += 0.1;
+                currentBall();
+            });
+
+            document.getElementById("decreaseGravity").addEventListener("click", () => {
+                ball.gravity -= 0.1;
+                currentBall();
+            });
+
+            document.getElementById("increaseFriction").addEventListener("click", () => {
+                ball.friction += 0.1;
+                currentBall();
+            });
+
+            document.getElementById("decreaseFriction").addEventListener("click", () => {
+                ball.friction -= 0.1;
+                currentBall();
+            });
+            }
+
+            function ballBounce() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
+                ball.ballMovement(canvas); 
+                requestAnimationFrame(ballBounce);
+            }
+        </script>
+        <script src="kodutöö3.js"></script>
+    </head>
+    <body onload="startPage()">
+        <canvas id="canvas"></canvas>
+        <p>Gravitatsioon:<span id="currentGravity"> 0.5</span></p>
+        <p>Hõõrdejõud:<span id="currentFriction"> 1.00</span></p>
+        <button id="increaseGravity">Gravitatsioon üles</button>
+        <button id="decreaseGravity">Gravitatsioon alla</button>
+        <button id="increaseFriction">Hõõrdejõud üles</button>
+        <button id="decreaseFriction">Hõõrdejõud alla</button>
+    </body>
+</html>
