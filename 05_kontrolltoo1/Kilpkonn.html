@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kilpkonn</title>
+    <script src="Kilpkonn.js"></script>
+    <script>          
+        function startPage() {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            let turtle1 = new Turtle(ctx, 100, 200, "vasakule");
+            let turtle2 = new Turtle(ctx, 200, 400, "vasakule");
+            
+            addEventListener("keydown", function(event) {
+                if(event.key == "ArrowUp") {
+                    turtle1.moveForward();
+                    turtle1.proximityWarning(turtle2);
+                } else if(event.key == "ArrowRight") {
+                    turtle1.turnRight();
+                } else if(event.key == "ArrowLeft") {
+                    turtle2.turnRight();
+                } else if(event.key == "ArrowDown") {
+                    turtle2.moveForward();
+                    turtle1.proximityWarning(turtle2);
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                turtle1.drawTurtle();
+                turtle2.drawTurtle();
+            }
+        )};
+    </script>
+    <style>
+        canvas {
+            border: solid black;
+        }
+    </style>
+  </head>
+  <body onload="startPage()">
+      <canvas id="canvas" height="600" width="600"></canvas>
+  </body>
+</html>
