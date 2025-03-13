@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Arvutused1</title>
+        <script>
+            let calculators=[];
+            function startPage(){
+                calculators[0]=new CmToInches();
+                calculators[1]=new InchesToCm();
+                activateCalculator();
+
+            }
+            function activateCalculator(){
+                type1.innerText=calculators[calculatorSelect.selectIndex].inputUnit();
+                type1.innerText=calculators[calculatorSelect.selectIndex].outputUnit();
+                answer.innerText="";
+                input1.value="";
+            }
+            function buttonClick() {
+                answer.innerText=calculators(calculatorSelect.selectIndex).calculate(input1.valueAsNumber).toFixed(2);
+            }
+        </script>
+        <script src="arvutused1.js"></script>
+    </head>
+    <body onload="startPage()">
+        <input type="number" id="input1" onchange="buttonClick()">
+        <span id="type1"></span>
+        <input type="button" value="=" onclick="buttonClick()">&nbsp;
+        <span id="answer"></span>
+        <span id="type2"></span>
+        <option>centimeters to inches</option>
+        <option>inches to centimeters</option>
+    </body>
+</html>

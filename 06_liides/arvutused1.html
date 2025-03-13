@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Arvutused1</title>
+        <script>
+            let c1;
+            function startPage(){
+                c1=new InchesToCm();
+                type1.innerText=c1.inputUnit();
+                type2.innerText=c1.outputUnit();
+            }
+            function buttonClick(){
+                answer.innerText=c1.calculate(input1.valueAsNumber).toFixed(2);
+            }
+        </script>
+        <script src="arvutused1.js"></script>
+    </head>
+    <body onload="startPage()">
+        <input type="number" id="input1" onchange="buttonClick()">
+        <span id="type1"></span>
+        <input type="button" value="=" onclick="buttonClick()">&nbsp;
+        <span id="answer"></span>
+        <span id="type2"></span>
+    </body>
+</html>
