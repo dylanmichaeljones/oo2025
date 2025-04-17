@@ -1,0 +1,20 @@
+Potion store
+
+A customer class. Holds customer details and account balance. Method for adding money to account. Also maybe a method for wishlisting items. Transaction history.
+
+There is a product class. Products have a name, price and stock quantity. There are methods for adding and reducing quantity.
+
+Warehouse class for product stock.
+
+Second class is a shopping cart. It holds the product and the quantity of the product. You can add or remove products from the cart. There is a method to calculate the total price of the cart and to reduce the quantity of the item in stock. 
+
+File for completing the transaction. Checks the total price of the shopping cart and if the customer has enough money on his account to complete the purchase. Removes the amount from the customers wallet. Maybe add a discount code to reduce the price.
+
+Subclasses
+
+Maybe a bartering system. If customer is a rogue, they have a higher chance of success when bartering.
+
+If customer is a mage they get a 10% discount.
+
+Potion types: health potion, mana potion, stamina potion, mystery potion. Each come in small, medium or large sizes.
+
