@@ -3,13 +3,14 @@ var Customer = /** @class */ (function () {
         this.name = name;
         this.className = className;
         this.accountBalance = accountBalance;
+        this.returningCustomer = returningCustomer;
     }
     Customer.prototype.addBalance = function (amountToAdd) {
         return this.accountBalance += amountToAdd;
     };
     Customer.prototype.becomeReturningCustomer = function () {
         if (this.returningCustomer == false) {
-            document.querySelector("registerAccount");
+            document.querySelector("#registerAccount");
             this.returningCustomer = true;
             this.accountBalance -= 10;
         }
@@ -18,7 +19,12 @@ var Customer = /** @class */ (function () {
         }
     };
     Customer.prototype.displayCustomerDetails = function () {
-        console.table("Full name: ".concat(this.name, ", class: ").concat(this.className, ", account balance: ").concat(this.accountBalance));
+        console.table({
+            "Full name": this.name,
+            "Class": this.className,
+            "Account balance": this.accountBalance,
+            "Customer status": this.returningCustomer
+        });
     };
     return Customer;
 }());

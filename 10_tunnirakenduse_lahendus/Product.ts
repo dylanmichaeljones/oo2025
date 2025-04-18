@@ -1,24 +1,45 @@
 type potionSize = "small" | "medium" | "large";
 
 abstract class Potion {
-    constructor(size: potionSize, price: number) {}
-}
+    type: string;
+    size: potionSize;
+    price: number;
+    constructor(type:string, size: potionSize, price: number) {
+        this.type = type;
+        this.size = size;
+        this.price = price;
+    }
 
-abstract class HealthPotion extends Potion {
-    constructor(type: string, ) {
-        super();
+    static getPotionPrice(size): number {
+        if (size == "small") {
+            return 10;
+        } else if (size == "medium") {
+            return 20;
+        } else {
+            return 30;
+        }
     }
 }
 
-abstract class ManaPotion extends Potion {
-
+class HealthPotion extends Potion {
+    constructor(size: potionSize) {
+        super("health", size, HealthPotion.getPotionPrice(size));
+    }
 }
 
-abstract class StaminaPotion extends Potion {
-
+class ManaPotion extends Potion {
+    constructor(size: potionSize) {
+        super("mana", size, ManaPotion.getPotionPrice(size));
+    }
 }
 
-class SmallHealthPotion extends HealthPotion {
-    price = 10;
+class StaminaPotion extends Potion {
+    constructor(size: potionSize) {
+        super("stamina", size, StaminaPotion.getPotionPrice(size));
+    }
 }
+
+let smallHP = new HealthPotion("small"); 
+
+console.log(`This potion costs ${smallHP.price} gold.`);
 

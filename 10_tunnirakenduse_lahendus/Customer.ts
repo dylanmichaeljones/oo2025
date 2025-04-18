@@ -8,6 +8,7 @@ class Customer {
         this.name = name;
         this.className = className;
         this.accountBalance = accountBalance;
+        this.returningCustomer = returningCustomer;
     }
     addBalance(amountToAdd: number): number {
         return this.accountBalance += amountToAdd;
@@ -15,7 +16,7 @@ class Customer {
 
     becomeReturningCustomer(): void {
         if (this.returningCustomer == false) {
-            document.querySelector("registerAccount");
+            document.querySelector("#registerAccount");
             this.returningCustomer = true;
             this.accountBalance -= 10;
         } else {
@@ -24,7 +25,12 @@ class Customer {
     }
 
     displayCustomerDetails(): void {
-        console.table(`Full name: ${this.name}, class: ${this.className}, account balance: ${this.accountBalance}`);
+        console.table({
+            "Full name": this.name,
+            "Class": this.className,
+            "Account balance": this.accountBalance,
+            "Customer status": this.returningCustomer
+        });
     }
 }
 
