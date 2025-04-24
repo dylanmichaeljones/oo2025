@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Potion store</title>
-    <script></script>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Dylan’s Potion Store</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="store.js"></script>
 </head>
 <body>
-    <main>
-        <h1>Welcome to Dylan's potion store!</h1>
-        <p></p>
-    </main>
-    <nav>
-        <ul>
-            <li><a href="#profile">My Profile</a></li>
-            <li><a href="#potionList">Available potions</a></li>
-            <li><a href="#checkout">Finalize purchase</a></li>
-        </ul>
-    </nav>
-    <section id="profile">
-        <div id="accountDetails">
+  <h1>Welcome to Dylan’s Potion Store!</h1>
 
-        </div>
-        <div id="registerAccount">
-            <p>Enter your full name and class to become a returning customer! <small>(And pay the fee of 10 gold.)</small></p>
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname"><br>
-            <label for="class">Your class:</label><br>
-            <input type="text" id="class" name="class">
-        </div>
-    </section>
-    <section id="potionList">
+  <section id="profile">
+    <h2>My Profile</h2>
+    <div id="customerDetails">
+      <p></p>
+    </div>
+    <div id="becomeCustomer">
+      <p>Enter your full name and class to become a returning customer. <small>(For a small fee of 10 gold.)</small></p>
+      <label>First name: <input type="text" id="fname"></label><br>
+      <label>Last name: <input type="text" id="lname"></label><br>
+      <label>Class: <input type="text" id="class"></label><br>
+      <button id="registerBtn">Register</button>
+    </div>
+  </section>
 
-    </section>
-    <section id="checkout">
+  <section id="potionStock">
+    <h2>Available Potions</h2>
 
-    </section>
+  </section>
+
+  <section id="checkout">
+    <h2>Current cart</h2>
+    <div id="cartTotal"></div>
+    <button id="purchaseBtn">Complete purchase</button>
+  </section>
+
+  <script src="store.js" type="module"></script>
 </body>
 </html>

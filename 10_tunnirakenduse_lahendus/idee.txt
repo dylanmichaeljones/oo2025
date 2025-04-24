@@ -1,6 +1,6 @@
 Potion store
 
-A customer class. Holds customer details and account balance. Method for adding money to account. Also maybe a method for wishlisting items. Transaction history.
+A customer class. Holds customer details and account balance. Method for adding money to account.
 
 There is a product class. Products have a name, price and stock quantity. There are methods for adding and reducing quantity.
 

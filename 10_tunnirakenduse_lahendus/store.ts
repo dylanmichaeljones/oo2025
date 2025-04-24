@@ -26,6 +26,7 @@ class Customer {
     }
 
     displayCustomerDetails(): void {
+        document.getElementById("#customerDetails")
         console.table({
             "Full name": this.name,
             "Class": this.className,
@@ -41,8 +42,7 @@ mage1.addBalance(20)
 mage1.displayCustomerDetails();
 
 
-
-type potionSize = "small" | "medium" | "large";
+type potionSize = "Small" | "Medium" | "Large";
 
 abstract class Potion {
     type: string;
@@ -55,9 +55,9 @@ abstract class Potion {
     }
 
     static getPotionPrice(size: potionSize): number {
-        if (size == "small") {
+        if (size == "Small") {
             return 10;
-        } else if (size == "medium") {
+        } else if (size == "Medium") {
             return 20;
         } else {
             return 30;
@@ -67,25 +67,49 @@ abstract class Potion {
 
 class HealthPotion extends Potion {
     constructor(size: potionSize) {
-        super("health", size, HealthPotion.getPotionPrice(size));
+        super("Health", size, HealthPotion.getPotionPrice(size));
     }
 }
 
 class ManaPotion extends Potion {
     constructor(size: potionSize) {
-        super("mana", size, ManaPotion.getPotionPrice(size));
+        super("Mana", size, ManaPotion.getPotionPrice(size));
     }
 }
 
 class StaminaPotion extends Potion {
     constructor(size: potionSize) {
-        super("stamina", size, StaminaPotion.getPotionPrice(size));
+        super("Stamina", size, StaminaPotion.getPotionPrice(size));
     }
 }
 
-let smallHP = new HealthPotion("small"); 
+let potions = [
+    new HealthPotion("Small"),
+    new HealthPotion("Medium"),
+    new HealthPotion("Large"),
+    new ManaPotion("Small"),
+    new ManaPotion("Medium"),
+    new ManaPotion("Large"),
+    new StaminaPotion("Small"),
+    new StaminaPotion("Medium"),
+    new StaminaPotion("Large"),
+];
 
-console.log(`This potion costs ${smallHP.price} gold.`);
+function potionList(): void {
+    let potionStock = document.getElementById("potionStock")
+
+    for(let i=0; i < potions.length; i++) {
+        let potionSlot = document.createElement("div");
+        potionSlot.innerHTML = `
+        <h3>${potions[i].size} ${potions[i].type} Potion</h3>
+        <p>Price: ${potions[i].price} gold</p>
+        <button>Add to cart</button>`;
+
+        document.getElementById("potionStock")?.appendChild(potionSlot);
+    }
+}
+
+potionList();
 
 class Cart {
     items: {potion: Potion, quantity: number}[] = []
@@ -119,12 +143,3 @@ class Cart {
         }
     }
 }
-
-let cart1 = new Cart();
-cart1.displayCart();
-cart1.addItem(smallHP, 1);
-cart1.displayCart();
-
-cart1.finalizePurchase(mage1);
-mage1.displayCustomerDetails();
-cart1.displayCart();

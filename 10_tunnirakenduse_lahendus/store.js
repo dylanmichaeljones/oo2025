@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var _a;
 var Customer = /** @class */ (function () {
     function Customer(name, className, accountBalance, returningCustomer) {
         this.name = name;
@@ -34,6 +35,7 @@ var Customer = /** @class */ (function () {
         }
     };
     Customer.prototype.displayCustomerDetails = function () {
+        document.getElementById("#customerDetails");
         console.table({
             "Full name": this.name,
             "Class": this.className,
@@ -54,10 +56,10 @@ var Potion = /** @class */ (function () {
         this.price = price;
     }
     Potion.getPotionPrice = function (size) {
-        if (size == "small") {
+        if (size == "Small") {
             return 10;
         }
-        else if (size == "medium") {
+        else if (size == "Medium") {
             return 20;
         }
         else {
@@ -69,26 +71,89 @@ var Potion = /** @class */ (function () {
 var HealthPotion = /** @class */ (function (_super) {
     __extends(HealthPotion, _super);
     function HealthPotion(size) {
-        return _super.call(this, "health", size, HealthPotion.getPotionPrice(size)) || this;
+        return _super.call(this, "Health", size, HealthPotion.getPotionPrice(size)) || this;
     }
     return HealthPotion;
 }(Potion));
 var ManaPotion = /** @class */ (function (_super) {
     __extends(ManaPotion, _super);
     function ManaPotion(size) {
-        return _super.call(this, "mana", size, ManaPotion.getPotionPrice(size)) || this;
+        return _super.call(this, "Mana", size, ManaPotion.getPotionPrice(size)) || this;
     }
     return ManaPotion;
 }(Potion));
 var StaminaPotion = /** @class */ (function (_super) {
     __extends(StaminaPotion, _super);
     function StaminaPotion(size) {
-        return _super.call(this, "stamina", size, StaminaPotion.getPotionPrice(size)) || this;
+        return _super.call(this, "Stamina", size, StaminaPotion.getPotionPrice(size)) || this;
     }
     return StaminaPotion;
 }(Potion));
-var smallHP = new HealthPotion("small");
-console.log("This potion costs ".concat(smallHP.price, " gold."));
+var potions = [
+    new HealthPotion("Small"),
+    new HealthPotion("Medium"),
+    new HealthPotion("Large"),
+    new ManaPotion("Small"),
+    new ManaPotion("Medium"),
+    new ManaPotion("Large"),
+    new StaminaPotion("Small"),
+    new StaminaPotion("Medium"),
+    new StaminaPotion("Large"),
+];
+var cart = new Cart();
+function potionList() {
+    var potionStock = document.getElementById("potionStock");
+    for (var i = 0; i < potions.length; i++) {
+        var potionSlot = document.createElement("div");
+        potionSlot.innerHTML = "\n            <h3>".concat(potions[i].size, " ").concat(potions[i].type, " Potion</h3>\n            <p>Price: ").concat(potions[i].price, " gold</p>\n            <button class=\"add-to-cart\" data-index=\"").concat(i, "\">Add to cart</button>\n        ");
+        potionStock === null || potionStock === void 0 ? void 0 : potionStock.appendChild(potionSlot);
+    }
+    // Add event listeners to "Add to cart" buttons
+    var addToCartButtons = document.querySelectorAll(".add-to-cart");
+    addToCartButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            var index = event.target.getAttribute("data-index");
+            if (index) {
+                var potion = potions[parseInt(index)];
+                cart.addItem(potion, 1); // Add 1 potion to cart (modify quantity as needed)
+                updateCartDisplay();
+                updateCartTotal();
+            }
+        });
+    });
+}
+function updateCartDisplay() {
+    var cartContainer = document.getElementById("cartTotal");
+    if (!cartContainer)
+        return;
+    cartContainer.innerHTML = ""; // Clear the current cart display
+    if (cart.items.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        return;
+    }
+    var cartList = document.createElement("ul");
+    cart.items.forEach(function (item) {
+        var listItem = document.createElement("li");
+        listItem.textContent = "".concat(item.quantity, " x ").concat(item.potion.size, " ").concat(item.potion.type, " Potion - ").concat(item.potion.price * item.quantity, " gold");
+        cartList.appendChild(listItem);
+    });
+    cartContainer.appendChild(cartList);
+}
+function updateCartTotal() {
+    var totalCost = 0;
+    cart.items.forEach(function (item) {
+        totalCost += item.potion.price * item.quantity;
+    });
+    var totalElement = document.getElementById("cartTotal");
+    if (totalElement) {
+        totalElement.innerHTML += "<p>Total: ".concat(totalCost, " gold</p>");
+    }
+}
+(_a = document.getElementById("purchaseBtn")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
+    cart.finalizePurchase(mage1); // Use the appropriate customer (like mage1)
+    updateCartDisplay();
+    updateCartTotal();
+});
 var Cart = /** @class */ (function () {
     function Cart() {
         this.items = [];
@@ -119,10 +184,5 @@ var Cart = /** @class */ (function () {
     };
     return Cart;
 }());
-var cart1 = new Cart();
-cart1.displayCart();
-cart1.addItem(smallHP, 1);
-cart1.displayCart();
-cart1.finalizePurchase(mage1);
-mage1.displayCustomerDetails();
-cart1.displayCart();
+// Initialize potion display
+potionList();
